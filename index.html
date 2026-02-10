@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Envelope container */
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    cursor: pointer;
+    transition: opacity 0.6s ease;
+}
+
+/* Envelope parts */
+.back {
+    position: absolute;
+    inset: 0;
+    background: white;
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    z-index: 1;
+}
+
+.front {
+    position: absolute;
+    inset: 0;
+    background: white;
+    clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+    z-index: 3;
+}
+
+.top {
+    position: absolute;
+    inset: 0;
+    background: #ffe0e6;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    transform-origin: top;
+    transition: transform 0.8s ease;
+    z-index: 4;
+}
+
+/* Letter */
+.letter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 90%;
+    max-width: 420px;
+    max-height: 70vh;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    text-align: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+/* Letter visible */
+.letter.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Text */
+.letter h1 {
+    margin-top: 0;
+    color: #ff4d6d;
+}
+
+.letter p {
+    color: #444;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* Hide scrollbar but keep scroll */
+.letter::-webkit-scrollbar {
+    width: 0;
+}
+
+/* Envelope open */
+.envelope.open .top {
+    transform: rotateX(-180deg);
+}
+
+.envelope.fade {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hidden YouTube */
+#player {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" id="envelope">
+    <div class="back"></div>
+    <div class="front"></div>
+    <div class="top"></div>
+</div>
+
+<div class="letter" id="letter">
+    <h1>My Love ❤️</h1>
+    <p>
+        From the moment you came into my life, everything changed.
+        You became my favorite thought, my safest place, and my happiest feeling.
+    </p>
+    <p>
+        Loving you is the easiest and most beautiful thing I’ve ever done.
+        I choose you today, tomorrow, and always.
+    </p>
+    <p>
+        Thank you for being you, for your love, your patience,
+        and for making my world brighter just by being in it.
+    </p>
+    <p>
+        No matter where life takes us, I want you to know that
+        my heart will always choose you.
+    </p>
+    <p><strong>Happy Valentine’s Day 💕</strong></p>
+    <p>— Yours, forever</p>
+</div>
+
+<!-- Hidden YouTube audio -->
+<iframe
+    id="player"
+    src="https://www.youtube.com/embed/cyiQLhvyJH0?autoplay=0"
+    allow="autoplay"
+    width="0"
+    height="0"
+    frameborder="0">
+</iframe>
+
+<script>
+let opened = false;
+
+document.getElementById("envelope").addEventListener("click", () => {
+    if (opened) return;
+    opened = true;
+
+    const envelope = document.getElementById("envelope");
+    const letter = document.getElementById("letter");
+    const player = document.getElementById("player");
+
+    // Open envelope flap
+    envelope.classList.add("open");
+
+    // Play music (user gesture safe)
+    player.src = "https://www.youtube.com/embed/cyiQLhvyJH0?autoplay=1";
+
+    // Fade envelope away, then show letter
+    setTimeout(() => {
+        envelope.classList.add("fade");
+        letter.classList.add("show");
+    }, 600);
+});
+</script>
+
+</body>
+</html>
